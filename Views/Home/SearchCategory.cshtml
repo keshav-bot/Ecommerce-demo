@@ -1,0 +1,43 @@
+﻿@using KKTraders.Data
+@model IEnumerable<Product>
+
+
+<div class="jumbotron m-1 " style="background-color:slategray;">
+    <h1 class="text-white font-italic text-center">We are proud to present you with our best collection</h1>
+</div>
+<div class="tab-content py-3 px-3 px-sm-0 offset-1" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-men" role="tabpanel" aria-labelledby="nav-men-tab">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-12">
+                    <div class="product-grid4">
+                        <div class="product-image4">
+                            <a href="product-detail.html">
+                                <img class="pic-1" src="@item.ProductImageUrl">
+                                <img class="pic-2" src="@item.ProductImageUrl">
+                            </a>
+                            <ul class="social">
+                                <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                                <li><a asp-action="ProductDetails" asp-controller="Product" asp-route-id="@item.Id" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+
+                                <li><a asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Id" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                            <span class="product-new-label">Best</span>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="title"><a href="#">@item.Description</a></h3>
+                            <div class="price">
+                                @item.Price
+                                <span> @item.Price</span>
+                            </div>
+                            <a class="add-to-cart" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Id">ADD TO CART</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

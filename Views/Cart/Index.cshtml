@@ -1,0 +1,128 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using KKTraders.Extensions
+@using StaticDetails
+@model List<ProductModel>
+<div class="mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+        </ol>
+    </nav>
+</div>
+@{ double total = 0;
+    double sum = 0;
+ }
+@if (Model!=null)
+{
+            <div class="row">
+                <div class="col-md-8">
+                    @if (Model.Any())
+                    {
+                        <div class="card">
+                            <div class="card-header">
+                                <sapn class="text-info"> <i class="fas fa-shopping-cart icon"></i></sapn>
+                                <a asp-action="" asp-controller="" class="float-right btn btn-primary"> Continue shopping</a>
+                            </div>
+                            <div class="card-body">
+                                <table class="table caption-top">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            total = total + item.Price;
+                                            sum = item.Price * item.frequency;
+                                            <tr>
+                                                <th scope="row">@item.Name</th>
+                                                <td><p id="sum">@item.Price</p></td>
+                                                <td> @sum</td>
+                                                <td>
+                                                    <form method="post" id="myform" asp-action="Index" asp-controller="Cart" asp-route-id= "@item.Id ">
+                                                       
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id">
+                                                        <i class="far fa-trash-alt text-danger"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                     }
+                        else
+                        {
+                            <div class="card">
+                                <div class="card-header">
+                                    <sapn class="text-info"> <i class="fas fa-shopping-cart icon"></i> &nbsp; Shopping  Cart</sapn>
+                                    <a asp-action="" asp-controller="" class="float-right btn btn-primary"> Continue shopping</a>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table caption-top">
+
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="4" class="text-center h3 text-secondary">None at this moment..</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>                  
+                        }
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Total Amount</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    Total
+                                </div>
+                                <div class="col-sm-6">
+                                    Rs @total
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            @if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(SD.sessionCart).Count > 0)
+                            {
+                                <a class="btn btn-info" asp-action="OrderSummary" asp-controller="Order">Proceeed to Buy</a>
+                            }
+
+                            <a class="text-danger" asp-action="Index" asp-controller="Home">Back to Shopping</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+}
+
+
+
+
+
+
+
+

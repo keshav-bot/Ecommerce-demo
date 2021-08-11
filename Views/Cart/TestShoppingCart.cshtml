@@ -1,0 +1,88 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "TestShoppingCart";
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Shopping cart</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            #
+                        </th>
+                        <th scope="col">
+                            Img
+                        </th>
+                        <th scope="col">
+                            Name
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th scope="col">
+                            Price
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ double total = 0;}
+                    @foreach (var item in Model)
+                    {
+                        total = total + item.Price;
+                        <tr class="p-4">
+                            <td>
+                                <p>#</p>
+                            </td>
+                            <td>
+                                <img src="@item.ProductImageUrl" alt="img" style="height:40px; width:50px" />
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <th>
+                                <form method="get" >
+                                    <input type="number" min="1" name="num" value="1" />
+                                </form>
+                            </th>
+                            <td>
+                                @item.Price
+                            </td>
+
+                            <td>
+                                <a asp-action="Remove" class="text-danger" asp-controller="Home" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-sm-4 " >
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-danger">Your Voucher</h1>
+                </div>
+                <div class="card-body">
+                    <ul style="list-style-type:none">
+                        <li>Total = @total </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<style>
+</style>

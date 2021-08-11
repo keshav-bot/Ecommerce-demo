@@ -1,0 +1,129 @@
+﻿@model IEnumerable<ProductModel>
+
+@{
+    ViewData["Title"] = "AllProduct";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Product</a></li>
+        <li class="breadcrumb-item active" aria-current="page">All Product</li>
+    </ol>
+</nav>
+
+<div style="margin-left:50px; margin-right:50px;">
+    <div class="row">
+        <div class="col-sm-5 col-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" style="border-radius:30px; font-size:15px;" name="search_text" id="search_text" placeholder="search product" class=" textx-primary form-control" />
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7 col-12">
+            <p>
+                <a asp-controller="Product" asp-action="AddNewProduct" class="btn btn-primary" style="float:right; width:200px; margin:10px;"><i class="fa fa-plus"></i> &nbsp;&nbsp;Add New </a>
+            </p>
+        </div>
+    </div>
+
+    <table class="table border">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Units)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MinimumUnits)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody id="setData">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.ProductImageUrl" height="50" widht="50" class="rounded" />
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Units)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MinimumUnits)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a asp-action="EditProduct" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="ProductDetails" asp-route-id="@item.Id">Details</a> |
+                        <a  class="text-danger" onclick="newfunction()">Delete</a>
+                        <form method="post" id="myform" asp-route-id="@item.Id" asp-action="DeleteProduct" asp-controller="Product">
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    <script>
+        $(document).ready(function () {
+            $("#search_text").keyup(function () {
+                var data = $(this).val();
+                var sedData = $("#setData");
+                sedData.html("");
+                $.ajax({
+                    type: "post", 
+                    url: "admin/product/searchProduct?searchBy=" + data, 
+                    contentType: "json",
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        if (data.length == 0) {
+                            sedData.append('<tr><td colspan="6" style="color:red;text-align-center; padding:30px;">No match result was founnd</td></tr>');
+                        }
+                        else {
+                            for (var key in data) {
+                                if (data.hasOwnProperty(key)) {
+                                    var tbl = "<tr>" +
+                                        "<td>" + data[key].Name + "</td>" +
+                                        "<td>" + data[key].Price + "</td>" +
+                                        "<td>" + data[key].Units + "</td>" +
+                                        "<td>" + data[key].MinimumUnits + "</td>" +
+                                        "<td>" + data[key].Description + "</td>" +
+                                        "</tr>";
+                                    sedData.append(tbl);
+                                }
+                            }
+                        }
+                    }
+                });
+
+            });
+        });
+
+        function newfunction() {
+            var result = confirm("Are You sure you want to delete");
+            if (result == true) {
+                document.getElementById("myform").submit();
+          
+            }
+        }
+    </script>

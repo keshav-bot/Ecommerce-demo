@@ -1,0 +1,93 @@
+﻿@model KKTraders.Models.SignInModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    @*<environment include="Development">
+
+            <link href="~/css/style.default.css" rel="stylesheet" />
+            <link href="~/css/fontastic.css" rel="stylesheet" />
+            <link href="~/css/custom.css" rel="stylesheet" />
+            <link href="~/css/grasp_mobile_progress_circle-1.0.0.min.css" rel="stylesheet" />
+            <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/css/font-awesome.css" rel="stylesheet" />
+            <link href="~/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+            <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+            <link href="~/css/templatemo-style.css" rel="stylesheet" />
+            <link rel="stylesheet" href="fontawesome/css/all.min.css">
+        </environment>
+        <environment exclude="Development">
+            <link href="~/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        </environment>*@
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="icon" href="img/logo-1.png" type="image/gif" />
+    <!--font icon-->
+    <link rel="stylesheet" href="~/fontawesome-free-5.8.2-web/css/all.css" />
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+
+</head>
+<body>
+    <aside class="col-sm-4 offset-md-4  offset-sm-2" style="margin-top:150px;">
+        <div class="card bg-transparent">
+            <article class="card-body">
+                <h4 class="card-title text-center mb-4 mt-1 text-primary"e>LogIn</h4>
+                <hr>
+                <form method="post" asp-action="Login">
+                    <span asp-validation-summary="All" class="text-danger"></span>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input asp-for="Email" class="form-control" placeholder="Email">
+
+                        </div>
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <input class="form-control" placeholder="******" asp-for="Password">
+
+                        </div>
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox form-check-label">
+                            <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                    </div>
+
+                    <p class="text-center"><a asp-action="ForgetPassword" class="btn">Forgot password?</a></p>
+                    <div class="btn btn-success"><a asp-action="SignUp" asp-controller="Account" class="text-white">SignUp</a> </div>
+                </form>
+            </article>
+        </div>
+    </aside>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

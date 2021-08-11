@@ -1,0 +1,60 @@
+﻿@using KKTraders.Models.ViewModel
+@model EditRoleViewModel
+@{
+    ViewData["Title"] = "EditRole";
+}
+<div class="container">
+    <div class="card">
+        <div class="card-header"> <h2>Edit Role</h2></div>
+        <div class="card-body">
+            <form method="post" asp-action="EditRole">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Id" class="text-primary"></label>
+                    <input asp-for="Id" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoleName" class="text-primary"></label>
+                    <input asp-for="RoleName" class="form-control" />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2 d-md-block">
+                        <input type="submit" name="Save" class="btn btn-outline-primary" />
+                        <a asp-action="DisplayRole" asp-controller="Administration" class="btn btn-outline-primary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-header">
+        <h2>User in this  Role</h2>
+    </div>
+    @if (Model.User.Any())
+    {
+        <div class="card-body">
+            <div class="card-title">
+                @foreach (var item in Model.User)
+                {
+                    <h5 class="card-title">@item</h5>
+                }
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" asp-action="EditUserInRole" asp-route-roleId="@Model.Id" asp-controller="Administration">Add Or Remove User</a>
+        </div>
+    }
+    else
+    {
+        <div class="card-body">
+            <div class="card-title">
+                <h1> None at this moment....</h1>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" asp-action="EditUserInRole" asp-route-roleId="@Model.Id" asp-controller="Administration">Add Or Remove User</a>
+        </div>
+    }
+</div>

@@ -1,0 +1,48 @@
+﻿@model PostModel
+<h4 class=" text-primary" style="padding:20px; margin-top:20px;">Add new Post</h4>
+<hr />
+@if (ViewBag.isSubmitted == true)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> New Post has been added Sucessfully
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<form method="post" asp-action="AddNewPost">
+    <div class="row" style="margin-left:100px;margin-right:100px;">
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="col-md-6 col-12">
+            <div class="form-group">
+                <label asp-for="Name" class="text-primary form-label"></label>
+                <input asp-for="Name" class="form-control" /><p class="text-danger">
+                    <span class="text-danger">*</span>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 ">
+            <div class="form-group">
+                <label asp-for="salary" class="text-primary form-label"></label>
+                <input asp-for="salary" class="form-control" /><p class="text-danger">
+                    <span class="text-danger">*</span>
+                    <span asp-validation-for="salary" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <div class="form-group">
+                <label asp-for="JobDescription" class="text-primary form-label"></label>
+                <input asp-for="JobDescription" class="form-control" /><span class="text-danger">*</span>
+                <span asp-validation-for="JobDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12 col-12">
+            
+                <input type="submit" class=" text-white btn btn-primary " style="" value="submit" />
+            
+
+        </div>
+
+    </div>
+</form>

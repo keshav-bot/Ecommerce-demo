@@ -1,0 +1,33 @@
+﻿@model IList<ProductModel>
+@{ 
+   
+}
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+       {
+        <div class="col-3">
+            <div class="card text-white bg-info mb-3" style="width: 18rem;">
+                @if (item.ProductImageUrl == null)
+                {
+                    <img class="card-img-top" src="~/Images/DefaultImages/dummyImage.jpg" alt="Image">
+                }
+                else
+                {
+                    <img class="card-img-top" src="@item.ProductImageUrl" alt="ProductImage">
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text">@item.Price</p>
+                    <p class="card-text">@item.Units</p>
+                    <a asp-action="ProductDetails"  asp-route-id="@item.Id" class="btn btn-primary">Preview</a>
+                    <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+</div>
+   

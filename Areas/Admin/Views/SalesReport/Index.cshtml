@@ -1,0 +1,36 @@
+﻿ @model SalesReport
+@{
+    ViewData["Title"] = "AllSales";
+
+}
+<div class="card m-3">
+    <div class="card-body">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Admin-Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">sales Invoice</li>
+            </ol>
+        </nav>
+        <div class="border backgroundWhite" style="margin:20px;">
+            <br />
+            <br />
+            <table id="tbldata" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>SalesId</th>
+                        <th>NameOfCustomer</th>
+                        <th>Email</th>
+                        <th>DateOfSale</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+  
+    <script src="~/Admin/js/SalesReport.js"></script>
+}
+
+

@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{ 
+    var currentuser= UserManager.GetUserAsync(User);
+}
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li>
+            <span class="nav-link text-White">@User.Identity.Name!</span>
+            <a class="btn btn-info text-White" asp-action="ChangePassword" asp-controller="Account">ChangePassword</a>
+            <form class="form-inline" asp-controller="Account" asp-action="LogOut">
+                <button type="submit" class=" text-white btn btn-danger form-control ">Logout</button>
+            </form>
+            
+        </li>
+    }
+    else
+    {
+        <li>
+            <ul class="form-group">
+                <li style="text-align:center">
+                    <a class=" text-dark-50" asp-action="SignUp" asp-controller="Account">Register</a>
+                </li>
+                <li style="text-align:center">
+                    <a class=" text-dark-50" asp-action="Login" asp-controller="Account" asp-route-ReturnUrl="@Context.Request.Path">Login</a>
+                </li>
+            </ul>
+        </li>
+    }
+</ul>
+

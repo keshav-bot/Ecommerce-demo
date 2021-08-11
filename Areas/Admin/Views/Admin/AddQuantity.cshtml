@@ -1,0 +1,109 @@
+﻿@using KKTraders.Areas.Admin.Models
+@model AddQuantity
+<div class="m-1">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Admin-Home</a></li>
+            <li class="breadcrumb-item"><a asp-action="AllProduct" asp-controller="Product" asp-area="Admin">All-Product</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add-Quantity</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+<div class="row" style="margin-left:50px;padding:10px; margin-right:20px; margin-top:20px;">
+    <div class="col-md-4 col-12">
+        <div class="card">
+            @if (ViewBag.Updated == true)
+            {
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Update-Sucessful!</h4>
+                    <p>Quantity is updated</p>
+                    <hr>
+                </div>
+            }
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" id="myform" asp-action="AddQuantity" asp-controller="Admin">
+                        <div class="text-danger" asp-validation-summary="All"></div>
+                        <div class="form-group">
+                            <label asp-for="ProductName" class="form-label"></label>
+                            <select asp-for="ProductId" class="form-control" asp-items="ViewBag.productName">
+                                <option value="">Select-Product</option>
+                            </select>
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Quantity" class="form-label"></label>
+                            <input asp-for="Quantity" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Quantity"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-danger text-white form-control" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-12">
+        <div class="card">
+            <div class="card-header text-center text-primary h4">Product Details</div>
+            <div class="card-body bg-transparent">
+                <table class=" table table-striped" id="mytable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Prouct-Name</th>
+                            <th scope="col">Units</th>
+                            <th scope="col">Price</th>
+                           <th  scope="col"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update-Quantity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form  asp-route-id=""  asp-action="UpdateQuantityById" >
+                <div class="modal-body" >
+                   
+                    <div class="form-group">
+
+                        <label  asp-for="Quantity" class="form-label"></label>
+                        <input asp-for="Quantity" id="Qty"  class="form-control" />
+
+                    </div>
+                  
+                </div>
+                <div class="modal-footer">
+
+                    <div class="from-group">
+                        <input type="submit" id="SubmitModal" class="btn btn-danger" />
+                    </div>
+                    <button type="button"  class="btn btn-secondary"  data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+    <script src="~/Admin/js/AllProduct.js"></script>
+}

@@ -1,0 +1,97 @@
+﻿@model EmployeeModel
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Employee</li>
+        </ol>
+    </nav>
+<div class="container">
+    <form method="post" asp-action="AddNewEmployee" enctype="multipart/form-data">
+
+        @if (ViewBag.isSubmitted == true)
+        {
+            <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+                <strong>Report !</strong>Emloyee Added Sucessfully....
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <a asp-action="Index" asp-controller="Employee" class="btn y float-lg-right">View</a>
+            </div>
+        }
+        <div class="card">
+            <div class="card-header bg-white">
+                <div class="title">Add Employee</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            
+                            <input asp-for="Name" class="form-control" placeholder="Name" />
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input asp-for="Address" class="form-control" placeholder="Address" />
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                           
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="PhoneNumber" />
+                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            
+                            <input asp-for="Nationality" class="form-control" placeholder="Nationality" />
+                            <span class="text-danger" asp-validation-for="Nationality"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostName" class="form-label"></label>
+                    <select asp-for="PostId" class="form-control" asp-items="ViewBag.posts">
+                        <option value"">Select the post</option>
+
+                    </select>
+                    <span asp-validation-for="PostId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmployeeImage"></label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input asp-for="EmployeeImage" class="custom-file-input" id="custom-file-input" aria-describedby="inputGroupFileAddon04">
+                            <label class="custom-file-label" for="inputGroupFile04" id="custom-file-label">Choose file</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="EmployeeImage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="form-group">
+                    <input type="submit" value="Add Employee" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script type="text/javascript">
+
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}  

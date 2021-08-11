@@ -1,0 +1,44 @@
+﻿@model EmailConfirmModel
+
+
+<div class="container">
+    @if (Model.EmailVerified == true)
+    {
+
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Success!</h4>
+            <p>
+                You are now able to use our service .Your privacy is protected . Our
+                organization donot share informwtion with other . Your account is secure .
+                Please! Do not share your Email and password with other .
+            </p>
+            <hr>
+            <a class="btn btn-primary" asp-action="Login" asp-controller="Account" asp-route-returnUrl="Home/Index">Login</a>
+        </div>
+    }
+
+    else
+    {
+        if (Model.EmailSent == true)
+        {
+            <p> Email Send to your registered Email Address.</p>
+        }
+        else
+        {
+            <div class="card" style="margin:100px;">
+                <div class="card-header">Please check your Email</div>
+                <div class="card-body">
+                    <p class="text-primary"> Have not received  mail yet? </p>
+                    <form method="post" asp-action="ConfirmEmail">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Email" />
+                        <div class="form-group">
+                            <input type="submit" value="Resend Email confirmation email" class="btn btn-primary" />
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        }
+    }
+</div>

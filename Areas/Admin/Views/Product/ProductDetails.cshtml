@@ -1,0 +1,54 @@
+﻿@model KKTraders.Models.ProductModel
+@{
+    ViewData["Title"] = "ProductDetails";
+}
+<div class="m-1">
+    <div class="row">
+        <div class="col-sm-12 col-12">
+            <div class="text-center text-gray h1">Product</div>
+        </div>
+        <div class="col-sm-12 col-12">
+            <div class="text-center text-danger">@Model.Name</div>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item"><a asp-action="AllProduct" asp-controller="Product">All-Product</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product-details</li>
+        </ol>
+    </nav>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4 col-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">Name:@Model.Name</li>
+                        <li class="list-group-item">Price: @Model.Price</li>
+                        <li class="list-group-item">Purchased-Date: @Model.DateOfPurchase</li>
+                        <li class="list-group-item">Units-Available: @Model.Units</li>
+                        <li class="list-group-item">Units-Required: @Model.MinimumUnits</li>
+                        <li class="list-group-item">Discount-Allowed:@Model.Discount</li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 col-12">
+                    <img src="@Model.ProductImageUrl" class="card-img-top img-fluid" style="height:200px;" alt="...">
+                </div>
+                <div class="col-sm-4 col-12">
+                    <div clss="card">
+                        <div class="card-header bg-white">
+                            <div class="card-title text-center">Description</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-black-50 h4">@Model.Description</div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <a asp-action="AllProduct" asp-controller="Product" class="btn btn-danger float-right">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

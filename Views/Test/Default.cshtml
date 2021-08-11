@@ -1,0 +1,21 @@
+﻿<a class="add-to-cart" attr="1">click</a>
+<p id="result"></p>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart").click(function () {
+               var attr= $(this).attr("attr");
+                $.ajax({
+                    type: "get",
+                    contentType: "application/json;",
+                    url: "/Test/Default",
+                    data: { "id": attr },
+                    success: function () {
+                        alert("item is added Sucessfully");
+                    }
+                })
+            });
+        });
+    </script>
+}

@@ -1,0 +1,26 @@
+﻿@using KKTraders.Data
+@model ProductCategoryViewModel
+@foreach (var item in Model.category)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarshop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @item.Title
+        </a>
+        <div class="dropdown-menu fashion" aria-labelledby="navbarshop">
+            <div class="row fashion">
+                <div class="col-md-3">
+                    @foreach (var product in Model.product)
+                    {
+                        if (item.Id == product.CategoryId)
+                        {    
+                            <ul>
+                                <li style="margin:-10px; padding:10px; width:auto;" > <a asp-action="Search" asp-controller="Search" asp-route-SearchString="@product.Name"> @product.Name</a> </li>
+                            </ul>
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+    </li>
+}

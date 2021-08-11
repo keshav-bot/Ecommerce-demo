@@ -1,0 +1,83 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+<nav class="side-navbar">
+    <div class="side-navbar-wrapper">
+
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+
+            <div class="sidenav-header-inner text-center">
+
+                <h2 class="h5">KK Traders</h2><span>Online Shopping Hub</span>
+            </div>
+
+            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>K</strong><strong class="text-primary">K</strong></a></div>
+        </div>
+
+        <div class="main-menu">
+            <h5 class="sidenav-heading">Main</h5>
+            <ul id="side-main-menu" class="side-menu list-unstyled">
+                <li><a asp-area="Admin" asp-action="Index" asp-controller="Home"> <i class="fas fa-home"></i>&nbsp;DashBoard</a></li>
+                <li>
+                    <a asp-area="Admin" asp-action="Index" asp-controller="Suppliers"> <i class="fas fa-book"></i>&nbsp;Supplier</a>
+                </li>
+
+                <li>
+                    <a href="#dropdownexample" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Product</a>
+
+                    <ul id="dropdownexample" class="collapse list-unstyled ">
+                        <li><a asp-area="Admin" asp-action="AddNewProduct" asp-controller="Product"> <i class="fas fa-plus"></i>&nbsp;Add Product</a></li>
+                        <li><a asp-area="Admin" asp-action="AllProduct" asp-controller="Product"> <i class=""></i>&nbsp;All-Product</a></li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#EmployeeDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Employee</a>
+                    <ul id="EmployeeDropdown" class="collapse list-unstyled ">
+                        <li><a asp-area="Admin" asp-action="AddNewEmployee" asp-controller="Employee"><i class="fas fa-user-secret"></i> &nbsp;  Add Employee</a></li>
+                        <li><a asp-area="Admin" asp-action="Index" asp-controller="Employee"><i class="fas fa-user-friends"></i> &nbsp;  All-Employee</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-action="Index" asp-controller="Category"> <i class="fas fa-book"></i>&nbsp;Category</a>
+                </li>
+
+                <li><a asp-area="Admin" asp-action="RequestStatus" asp-controller="Order" asp-route-status="All">OrderStatus</a></li>
+                <li><a asp-area="Admin" asp-action="AddQuantity" asp-controller="Admin">Update-Quantity</a></li>
+                <li>
+                    <a href="#InvoiceDropDown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Inventory-Report</a>
+                    <ul id="InvoiceDropDown" class="collapse list-unstyled ">
+                        <li><a asp-area="Admin" asp-action="Index" asp-controller="SalesReport"><i class=" fas fa-page4"></i> &nbsp;  sales-Report</a></li>
+                        <li><a asp-area="Admin" asp-action="Index" asp-controller="PurchaseReport"><i class=" fas fa-page4"></i> &nbsp;  Purchase-Report</a></li>
+
+                    </ul>
+                </li>
+                <li><a asp-area="Admin" asp-action="ListUser" asp-controller="Administration"> <i class="fas fa-user-friends"></i>&nbsp;UserList</a></li>
+                <li><a asp-area="Admin" asp-action="DisplayRole" asp-controller="Administration"> <i class="fas fa-user-friends"></i>&nbsp;Manage Role</a></li>
+                <li>
+                    <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Add new</a>
+                    <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                        <li><a asp-action="AddNewCategory" asp-controller="Category" asp-area="Admin"><i class="fas fa-plus"></i>New Category</a></li>
+                        <li><a asp-action="AddNewPost" asp-controller="Post" asp-area="Admin"><i class="fas fa-plus" New Post></i>New Post</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#toggle-btn').click(function () {
+                $('.side-navbar').toggle();
+            });
+            $('sidenav-header-logo').click(function () {
+                $('.side-navbar').toggle();
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,106 @@
+﻿
+@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "ListUsers";
+
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+
+        <li class="breadcrumb-item active" aria-current="page">ListUser</li>
+    </ol>
+</nav>
+<div class="card text-white bg-success mb-1" style="max-width: 20rem; height:8rem;">
+
+    <div class="card-body">
+        <h5 class="card-title">Total Number of  user</h5>
+        <p class="card-text">@Model.Count()</p>
+    </div>
+</div>
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class=" table table-secondary table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>SN No.</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>UserName</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var user in Model)
+                {
+
+                    <tr>
+                        <th>#</th>
+                        <td>
+                            @user.FirstName
+                        </td>
+                        <td>
+                            @user.LastName
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            <form method="post" asp-area="Admin" asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@user.Id">
+                                <a class="card-link btn btn-secondary text-white" asp-controller="Administration" asp-action="EditUser" asp-route-id="@user.Id">Edit</a>
+                                <span id="confirmDeleteSpan_@user.Id" style="display:none">
+                                    <span>Are you sure you want to delete?</span>
+                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                    <a href="#" class="btn btn-primary" onclick="confirmDelete('@user.Id', false)">No</a>
+                                </span>
+                                <span id="deleteSpan_@user.Id">
+                                    <button type="submit" class="btn btn-danger" onclick="confirmDelete('@user.Id', true)">Delete</button>
+                                </span>
+                            </form>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class=" table table-secondary table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>SN No.</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>UserName</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">None at this moment !</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+}
+@section Scripts{      
+<script>
+    function confirmDelete(userid, action) {
+        var deleteSpan = document.getElementById("deleteSpan" + userid).onclick;
+        if (document.getElementById("deleteSpan" + userid).onclick && action == true) {
+            document.getElementById("confirmDeleteSpan" + userid).show;
+        }
+       
+       
+    }
+</script>
+
+
+    <script src="~/js/DeleteConfirm.js"></script>
+}

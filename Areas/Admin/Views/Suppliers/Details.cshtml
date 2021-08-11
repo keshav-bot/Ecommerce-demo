@@ -1,0 +1,58 @@
+﻿@model Supplier
+
+    <div class="m-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Admin-Home</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Supplier">All-Supplier</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Details</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(x=>x.Name)
+
+                        </th>
+                        <td>
+                            @Html.DisplayFor(x=>x.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(x=>x.PhoneNumber)
+
+                        </th>
+                        <td>@Html.DisplayFor(x=>x.PhoneNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(x=>x.Address)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(x=>x.Address)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(x=>x.status)
+                        </th>
+                        <td>
+                            @if(Model.status==1)
+                            {
+                                <p class="text-primary" >Active</p>
+                            }
+                            else
+                            {
+                                <p class="text-danger">InActive</p>
+                            }
+                        </td>
+                    </tr>
+                </table>
+                <a  class=" btn btn-primary" asp-action="Index" asp-controller="Suppliers">Back To List</a>
+            </div>
+        </div>
+    </div>

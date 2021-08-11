@@ -1,0 +1,263 @@
+﻿@model List<Item>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using KKTraders.Extensions
+@using StaticDetails
+@{
+    double total = 0;
+    double sumtotal = 0;
+    double discount = 0;
+}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+    </ol>
+</nav>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-sm-8 col-12">
+            <div class="container">
+                <div class="card-body  mt-1 ">
+                    <table class=" table table-striped ">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Price
+                                </th>
+                                <th scope="col">
+                                    Quantity
+                                </th>
+                                <th scope="col">
+                                    Total
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        @if (Model.Count > 0)
+                        {
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                    total = total + item.Quantity * item.product.Price;
+                                    discount = discount + item.Quantity * item.product.Discount;
+                                    sumtotal = total - discount;
+                                    //sumtotal = item.ItemId;
+                                    <tr>
+                                        <td>
+                                            <img src="@item.product.ProductImageUrl" class="rounded-circle"
+                                                 height="40" width="40" alt="@item.product.Name">
+                                        </td>
+                                        <td>
+                                            @item.product.Name
+                                        </td>
+                                        <td>
+                                            @item.product.Price
+                                            <input type="hidden"  value="@item.product.Price"  id="price_@item.product.Id" />
+                                            <input type="hidden"  value="@item.product.Discount"  id="discount_@item.product.Id" />
+                                           
+                                             
+
+                                        </td>
+                                        <td>
+                                            
+                                           <input type="number" min="1" value="@item.Quantity" name="Quantity" id="Quantity_@item.product.Id" onclick="myfunction(@item.product.Id)" />
+                                            
+                                        </td>
+                                        <td>
+                                            @{
+
+
+                                                var a = item.product.Price * item.Quantity;
+
+                                            }
+
+                                            <p id="Total_@item.product.Id">@a</p>
+
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger text-white" onclick="newfunction(@item.product.Id)"><i class="fas fa-trash"></i></a>
+                                            <form method="post" asp-action="DeleteCartItem" id="myform" asp-controller="Cart" asp-route-id="@item.product.Id" ></form>
+                                        </td>
+
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        }
+
+                        else
+                        {
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-danger text-center mt-5 h5">None at this moment</td>
+                                </tr>
+                            </tbody>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        @if (HttpContextAccessor.HttpContext.Session.GetObject<List<Item>>(SD.sessionCart).Count > 0)
+        {
+            <div class="col-sm-4 col-12">
+                <div class="card mt-3">
+                    <div class="card-header bg-danger">
+                        <p class="text-center">Total Amount</p>
+                    </div>
+                    <div class="card-body bg-success text-white">
+                       
+                        Total  <p class=" h5 " id="total">@total</p>
+                        Discount:<p class=" h5" id="discount"> :@discount</p>
+                        SumTotal: <p class=" h5  " id="sumtotal"> : @sumtotal</p>
+                    </div>
+                    <hr />
+                    <div class="card-footer border-0">
+                        <ul style="list-style-type:none;">
+                            <li class="m-1">
+                                @if (HttpContextAccessor.HttpContext.Session.GetObject<List<Item>>(SD.sessionCart).Count > 0)
+                                {
+                                    <a class="btn btn-secondary form-control" asp-action="OrderSummary" asp-controller="UserOrder" style="border-radius:20px;">Make Purchase</a>
+                                }
+
+                            </li>
+                            <li>
+                                <a class="btn btn-primary form-control" asp-action="Index" asp-controller="Home" style="border-radius:20px">Continue Shopping</a>
+
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+    </div>
+}
+
+    <script>
+        function myfunction(id) {
+            
+            $(document).ready(function () {
+                var price = $("#price_" + id).val();
+            
+                var Quantity = $("#Quantity_" + id).val();
+                
+                var total = 0;
+                var discount = 0;
+                var total = total + price * Quantity;
+                $('#Total_' + id).html(total);
+                $('#total').html(total);
+                var discount = discount + $('#discount_' + id).val() * Quantity;
+
+                $('#discount').html(discount);
+                var cp = total - discount;
+                $('#sumtotal').html(cp);
+                $.ajax({
+                    type: "post",
+                    url: "/Cart/updatecart",
+                    data: { id: id, Quantity: Quantity},
+                    success: function (data) {
+                        Lobibox.notify('success', {
+                            size: 'normal',
+                            icon: false,
+                            position: "bottom right",
+                            delayIndicator: true,
+                            msg: 'shopping cart updated sucessfully',
+                            delay: 4000,
+                            closeOnClick: true,
+                            sound: true,
+                        });
+                    }
+                });
+                
+            });
+        }
+        function newfunction(id)
+        {
+            var result = confirm("Are you sure you want to remove");
+            if (result == true) {
+                document.getElementById("myform").submit();
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script>
+    function myfunction(id) {
+        var price = document.getElementById("Price_" + id).value;
+        var Quantity = document.getElementById("Quantity_" + id).value;
+        var Result = price * Quantity;
+        document.getElementById("#total_"+id).value = result;
+        document.getElementById("#form_"+id).submit();
+
+    }
+    function newFunction() {
+        var a = confirm("Are you sure You want to remove");
+        if (a == true) {
+            document.getElementById("myform").submit();
+        }
+    }
+</script>*@
+
+ @*document.ready(function () {
+            $("#Quantity_" + id).change(function () {
+                $.ajax({
+                    type: "post",
+                    contentType: "application/json;",
+                    url: "/Cart/updatecart",
+                    data: { "id": id, "Quantity": Quantity },
+                    success: function (data) {
+                        $("#count").html(data);
+
+                        Lobibox.notify('success', {
+                            size: 'normal',
+                            icon: false,
+                            position: "top right",
+                            delayIndicator: true,
+                            msg: 'Item added to the shopping cart',
+                            delay: 5000,
+                            closeOnClick: true,
+                            sound: true,
+
+                        });
+                    }
+
+                })
+            });
+        });*@

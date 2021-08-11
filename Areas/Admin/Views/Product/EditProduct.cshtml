@@ -1,0 +1,98 @@
+﻿@model ProductModel
+    <div style="margin:50px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Home" asp-controller="Index" asp-area="Admin">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit-Product</li>
+            </ol>
+        </nav>
+            <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ProductImageUrl" />
+                <div class="row">
+                    <div class="col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group">
+                            <label asp-for="Discount" class="control-label"></label>
+                            <input asp-for="Discount" class="form-control" />
+                            <span asp-validation-for="Discount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label">Current Units</label>
+                            <input asp-for="Units" class="form-control" />
+                            <span asp-validation-for="Units" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group">
+                            <label  asp-for="MinimumUnits"class="control-label"></label>
+                            <input asp-for="MinimumUnits" class="form-control" />
+                            <span asp-validation-for="MinimumUnits" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-12">
+
+                        <div class="form-group">
+                            <label asp-for="ProductImage"></label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input asp-for="ProductImage" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                    <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                                </div>
+                            </div>
+                            <span asp-validation-for="ProductImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group">
+                            <label class="form-label">Product-Category</label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.category">
+                                <option value"">Select the category</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>             
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-danger" />            
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a  class="float-right text-danger" asp-action="AllProduct" asp-controller="Product">Back to List</a>
+                        </div>
+                    </div>
+                </div>             
+            </form>
+    </div>
+

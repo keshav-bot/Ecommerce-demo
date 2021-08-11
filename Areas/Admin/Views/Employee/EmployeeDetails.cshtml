@@ -1,0 +1,64 @@
+﻿@model EmployeeModel
+@inject SignInManager<ApplicationUser> signInManager
+@*<div class="card">
+        <div class="card-header">
+            <strong class="text-primary">Details of @Model.Name Employee</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="display-4">Name=@Model.Name</span>
+                </div>
+                <div class="col-md-12">
+                    <span class="display-4">Address=@Model.Address</span>
+                </div>
+                <div class="col-md-12">
+                    <span class="display-4">PhoneNumber=@Model.PhoneNumber</span>
+                </div>
+                <div class="col-md-12">
+                    <span>Designation=@Model.PostName</span>
+                </div>
+                <div class="col-md-12">
+                    <span class="display-4">Salary=@Model.Salary</span>
+                </div>
+                <div class="col-md-12">
+                    <span class="display-4">Description=@Model.Description</span>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="card bg-transparent">
+    <img src="@Model.EmployeeImageUrl" class="card-img-top w-25" alt="Image of Employee">
+    <div class="card-body">
+        <h5 class="card-title display-4 text-primary"> Details of @Model.Name</h5>
+        <hr />
+        <p class="card-text display-4">All the Information</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Name : @Model.Name</li>
+        <hr />
+        <li class="list-group-item">Address : @Model.Address</li>
+        <hr />
+        <li class="list-group-item">Phone Number : @Model.PhoneNumber</li>
+        <hr />
+        <li class="list-group-item">Position: @Model.PostName</li>
+        <hr />
+        <li class="list-group-item">Salary: @Model.Salary</li>
+        <hr />
+        <li class="list-group-item">Description : @Model.Description</li>
+        <hr />
+    </ul>
+    <div class="card-body">
+
+        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <a asp-action="EditEmployee" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@Model.Id" class="btn btn-primary ">Edit</a>
+            <a asp-action="DeleteEmployee" asp-route-id="@Model.Id" class="btn btn-danger ">Delete</a>
+            <a asp-action="Index" class="text-primary float-sm-right">Back to List;</a>
+
+        }
+    </div>
+</div>
+
+

@@ -1,0 +1,67 @@
+﻿@inject SignInManager<ApplicationUser> signInManager
+@model IEnumerable<EmployeeModel>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Employee Table</h2>
+            </div>
+        </div>
+        @if (ViewBag.isDeleted == true)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong>@ViewBag.Message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(m => m.Name)
+                                </th>
+                                <th> @Html.DisplayNameFor(m => m.Address)</th>
+                                <th> @Html.DisplayNameFor(m => m.PhoneNumber)</th>
+                                <th> @Html.DisplayNameFor(m => m.PostName)</th>
+                                <th>  @Html.DisplayNameFor(m => m.Nationality)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@item.EmployeeImageUrl"
+                                             class="rounded-circle"
+                                             height="40" width="40"
+                                             asp-append-version="true" />
+                                        @item.Name
+                                    </td>
+
+                                    <td>@item.Address</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.PostName</td>
+                                    <td>@item.Nationality</td>
+                                    <td>
+                                        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                                        {
+                                            <span><a asp-action="DeleteEmployee" class="btn btn-outline-danger" asp-route-id="@item.Id">Delete</a></span>
+                                            <span><a asp-action="EditEmployee" asp-controller="Employee" class="btn btn-outline-info" asp-route-id="@item.Id">Edit</a></span>
+                                            <span><a asp-action="EmployeeDetails" class="btn btn-outline-primary" asp-route-id="@item.Id">Details</a></span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

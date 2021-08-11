@@ -1,0 +1,47 @@
+﻿@model PostModel   
+
+<h1> The following data has been sucessfully Deleted</h1>
+<div class="container border">
+    <div class="row">
+        <div class="col row">
+            <div class="col-6">
+                PostName
+            </div>
+            <div class="col-6">
+                @Model.Name
+            </div>
+        </div>
+    </div>
+    <div class="row-md">
+
+        <div class="col row">
+            <div class="col-6">
+                Respective salary
+            </div>
+            <div class="col-6">
+                @Model.salary
+            </div>
+        </div>
+    </div>
+    <div class="row-md">
+        <div class="col row">
+            <div class="col-6">
+                Job Description
+            </div>
+            <div class="col-6">
+                @Model.JobDescription
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a asp-action="AllPost" asp-controller="Post" class="btn btn-primary float-lg-right" >Back</a>
+        </div>
+    </div>
+
+      
+</div>
+
+
+
+

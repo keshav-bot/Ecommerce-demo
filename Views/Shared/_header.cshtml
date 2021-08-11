@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using KKTraders.Extensions
+@using StaticDetails
+@inject SignInManager<ApplicationUser> signInManager
+
+    <section id="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-12 f-left">
+                    <ul>
+                        <li>Welcome to KKTraders.com</li>
+                        <li><i class="fas fa-phone-alt social-icon"></i> &nbsp;9810441857</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-12 f-right">
+                    <ul>
+                        <li>
+                            <div class="dropdown">
+                                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="far fa-user social-icon"></i> &nbspMy Account
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <partial name="_LoginInfo" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-12">
+                    <a href="index.html"><img src="~/Images/DefaultImages/logo.jpg" class="img-fluid" alt="img-responsive"></a>
+                </div>
+                <div class="col-md-6 col-12 mt-3">
+                    <div class="form-group ">
+                        <form asp-action="Search" asp-controller="Search" method="get">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <input type="text" placeholder="Search" class="form-control"  name="SearchString">
+                                    </div>
+                                    <div class="col-sm-4" style="margin-left:-30px;">
+                                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form> 
+                    </div>
+                </div>
+                <div class="col-md-3 pt-3">
+                    @if(HttpContextAccessor.HttpContext.User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Index" asp-area="Admin" asp-controller="Home" class="btn btn-outline-danger" ><i class="fas fa-power-off" style="font-size:30px;"></i>Admin</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="menu">
+        <nav class="navbar navbar-expand-lg navbar-light top-navbar bg-light" data-toggle="sticky-onscroll">
+            <div class="container">
+                <a class="navbar-brand" href="~/Images/DefaultImages/logo.jpg">
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <a href="index.html"><img src="~/Images/DefaultImages/logo.jpg" class="img-fluid" alt="img-responsive"></a>
+                        <a asp-action="Index" asp-controller="Home">HOME</a>
+                        <a asp-action="AboutUs" asp-controller="Home">ABOUT US</a>                     
+                        <a asp-action="ShoppingCart"  asp-controller="Cart">VIEWCART</a>
+                        <a asp-action="MyOrder"  asp-controller="Order">ViewOrder</a>
+                    </div>
+                    <!-- Use any element to open the sidenav -->
+                    <span onclick="openNav()"><i class="fas fa-bars side-icon"></i></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-action="index" asp-controller="Home"> HOME <span class="sr-only">(current)</span></a>
+                        </li>
+                        @await Component.InvokeAsync("Navbar")
+                    </ul>
+                    <div class="menu-top">
+                        <ul>
+                           
+                            @if (HttpContextAccessor.HttpContext.Session.GetObject<List<Item>>(SD.sessionCart) != null)
+                            { 
+                                var count = HttpContextAccessor.HttpContext.Session.GetObject<List<Item>>(SD.sessionCart).Count();
+                                <li>
+                                    <a class="nav-link dropdown-toggle" asp-action="ShoppingCart" asp-controller="Cart" id="navbarcart" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-shopping-cart icon"></i> <span class="badge badge-danger" id="count">@count </span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a class="nav-link dropdown-toggle" asp-action="ShoppingCart" asp-controller="Cart" id="navbarcart" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-shopping-cart icon"></i> <span class="badge badge-danger" id="count">0</span>
+                                    </a>
+
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+

@@ -1,0 +1,80 @@
+﻿@model  Product 
+@{
+    ViewData["Title"] = "ProductDetails";
+}
+<style>
+    #img:hover{
+        
+    }
+    #img{
+        height:500px;
+        width:auto;
+        border:0;
+        image-resolution:from-image;
+    }
+    #ul {
+        list-style-type:none;
+    }
+   #li {
+        font-size:35px; color:brown;margin:10px; padding:10px;
+    }
+   #background{
+       background-color:antiquewhite;
+       margin-bottom:100px;
+   }
+   #p{
+       font-family:sans-serif;
+       color:darkslategrey;
+       font-size:20px;
+   }
+</style>
+
+<div id="background">
+    <nav aria-label="breadcrumb" class="mt-sm-1">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="breadcrumb-item "><a asp-action="AllProduct" asp-controller="Home">AllProducts</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-3 m-1">
+            <ul id="ul">
+                <li id="li">
+                    <i class="fas fa-truck"></i>Delivery<p id="p">(12 hours a day (5Am to  5 Pm))</p>
+                </li>
+                <li  id="li">
+                    <i class="fas fa-file-invoice-dollar"></i> Payment<p id="p">(online and offline)</p>
+                </li>
+                <li  id="li">
+                    <i class="fas fa-file-contract"></i> contract<p id="p">(Should be done before delivery)</p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-5 m-1">
+            <div class="card">
+                <img src="@Model.ProductImageUrl" class="card-img-top"   alt="@Model.Name" id="img">
+                
+            </div>
+        </div>
+        <div class="col-3 m-1">
+            <ul id="ul">
+                <li id="li">
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id" style="text-decoration:none;">
+                        <i class="fas fa-shopping-cart"></i>Add to Cart
+                    </a>
+                </li>
+                <li id="li">
+                    <a asp-action="AllProuct" asp-controller="Home" style="text-decoration:none;">
+                        <i class="fas fa-arrow-circle-left"></i> Back to List
+                    </a>
+                </li>
+              
+            </ul>
+        </div>
+    </div>
+
+</div>
+

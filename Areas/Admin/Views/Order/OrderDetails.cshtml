@@ -1,0 +1,104 @@
+﻿@model OrderViewModel
+@{ 
+    double total = 0;
+    double sumtotal = 0;
+    int actualdiscount = 0;
+    double sellingPriceTotal = 0;
+}
+<div class="mt-3 bg-white offset-1">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"> <a asp-action="Index" asp-controller="Admin">Home</a> </li>
+           
+            <li class="breadcrumb-item"><a asp-action="RequestStatus" asp-controller="Order" asp-route-status="All">All Orders</a></li>
+            <li class="breadcrumb-item active" aria-current="page">OrderDetails</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="row" style="margin-left:100px; margin-right:100px;">
+    <div class="col-sm-12 col-12">
+
+        <table class="table table-striped border">
+            <thead>
+                <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">
+                        Name
+                    </th>
+                    <th scope="col">
+                        Price
+                    </th>
+                    <th scope="col">
+                        Quantity
+                    </th>
+                    <th scope="col">
+                        Actual price
+                    </th>
+                    <th scope="col">
+                        Discount Allowed
+                    </th>
+                    <th scope="col">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.orderDetails)
+                {
+                    sumtotal = sumtotal + item.Price * item.Quantity;
+                    total = item.Price * item.Quantity;
+                    actualdiscount = actualdiscount + item.discount*item.Quantity;
+                    sellingPriceTotal = sumtotal - actualdiscount;
+
+                <tr>
+                        <td class="m-1 p-3">#</td>
+                        <td class="m-1 p-3">@item.ProductName</td>
+                        <td class="m-1 p-3">@item.Price</td>
+                        <td class="m-1 p-3">@item.Quantity</td>
+                        <td class="m-1 p-3">@total</td>
+
+                        <td class="m-1 p-3">@actualdiscount</td>
+                        <td>
+                        @if (item.OrderHeader.Status != "Approved")
+                        {
+                            <a class="m-1 btn btn-primary" asp-action="ChangeOrderStatus" asp-controlller="" asp-route-id="@item.Id" asp-route-status="Approved">Approve</a>
+                        }
+                        <a asp-action="ChangeOrderStatus" class=" btn btn-danger" asp-controlller="" asp-route-id="@item.Id" asp-route-status="Rejected">Reject</a>
+                    </td>
+
+                </tr>
+
+                }
+
+            </tbody>
+
+         </table>
+        <div class="col-sm-12 col-12 mt-3 ">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <p class="text-dark-50">Total</p> 
+                </div>
+                <div class="col-sm-6 col-12">
+                    <p class="text-dark-50 float-right"> Rs @sellingPriceTotal</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+       

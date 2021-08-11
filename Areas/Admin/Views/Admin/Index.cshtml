@@ -1,0 +1,147 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using KKTraders.Areas.Admin.Models
+@model AdminIndexModel
+<section class="dashboard-counts section-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-user"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase">New Clients</strong><span>Last 30 days</span>
+                        <div class="count-number"> @Model.TotalUser </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-mail"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase">Delivery Orders</strong><span>Last 30 days</span>
+                        <div class="count-number">@Model.NoOfPendingOrder</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class=""></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase">Total Employee</strong><span>All</span>
+                        <div class="count-number">@Model.Employee</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-bill"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase">Total User</strong><span>All</span>
+                        <div class="count-number">@Model.TotalUser</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-list"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase">Total Product</strong><span>All</span>
+                        <div class="count-number">@Model.NoOfProduct</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-2 col-md-4 col-6">
+                <div class="wrapper count-title d-flex">
+                    <div class="icon"><i class="icon-list-1"></i></div>
+                    <div class="name">
+                        <strong class="text-uppercase">Number of Supplier</strong><span> All </span>
+                        <div class="count-number">@Model.numberOfSupplier</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <!-- Page Header-->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Employee Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th></th>
+                                        <th>Full Name</th>
+                                   
+                                        <th>Phone Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.employee)
+                                    {
+                                        <tr>
+                                           
+                                            <td><img src="@item.EmployeeImageUrl" style="height:30px; width:30px;border-radius:10px;" class="img-fluid" /></td>
+                                            <td>@item.Name</td>
+                                           
+                                            <td>@item.PhoneNumber</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Product Table </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                      
+                                        <th>Purchase Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.product)
+                                    {
+                                        <tr>
+
+                                            <td><img src="@item.ProductImageUrl" style="height:30px; width:30px;border-radius:10px;" class="img-fluid" /></td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Price</td>
+                                            <td>@item.DateOfPurchase</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+

@@ -1,0 +1,60 @@
+﻿@model KKTraders.Models.SignUpModel
+@{
+    ViewData["Title"] = "SignUP";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<environment include="Development">
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/templatemo-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</environment>
+<environment exclude="Development">
+    <link href="~/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/templatemo-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</environment>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="card border-success mb-3 offset-sm-4 mt-3 " style="max-width: 40rem;">
+    <div class="card-header border-success bg-dark text-white p-4">SignUp</div>
+    <form asp-action="SignUP">
+        <div class="card-body text-success">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class=" card-footer form-group mb-4">
+            <input type="submit" value="SignIn" class="btn btn-primary form-control card-link" />
+            <p class="text-primary text-md-center">Or</p>
+            <div class="btn btn-success form-control mt-md-1"><a asp-action="Login" class="text-white" asp-controller="Account">Login</a></div>
+        </div>
+    </form>
+
+</div>

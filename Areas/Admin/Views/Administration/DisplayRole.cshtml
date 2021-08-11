@@ -1,0 +1,56 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "DisplayRole";
+}
+
+<h1>DisplayRole</h1>
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole" asp-controller="Administration">Add new Role</a>
+    @foreach (var item in Model)
+    {
+        <div class="card-header text-white bg-dark mt-4">
+            Role Id : @item.Id
+        </div>
+        <div class="card-body">
+            <h5>@item.Name</h5>
+        </div>
+        <div class="card-footer">
+            
+
+            <form method="post" asp-action="DeleteRole" asp-controller="Administration" asp-route-id="@item.Id">
+                <a asp-action="EditRole" class="btn btn-primary" asp-route-id="@item.Id" asp-controller="Administration">Edit</a>
+                <span id="confirmDeleteSpan_@item.Id" style="display:none">
+                    <span> Are you sure you want to delete?</span>
+                    <button type="submit" class="btn btn-danger">yes</button>
+                    <a href="#" class="btn btn-primary" onclick="confirmDeleteRole('@item.Id',false)">No</a>
+                </span>
+                <span id="deleteSpan_@item.Id">
+                    <a href="#" class="btn btn-danger" onclick="confirmDeleteRole('@item.Id',true)">Delete</a>
+                </span>
+                
+            </form>
+        </div>
+        <hr />
+    }
+
+ }
+else
+{
+    <div class="card">
+        <div class="card-header">No role yet</div>
+        <div calss="card-body">
+           <div class="card-title">Use the button below to create role</div>
+        </div>
+        <div class="card-footer">
+        
+            <a class="btn btn-block" asp-action="CreateRole" asp-controller="Administration">Create new Role</a>
+
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script src="~/js/DeleteConfirm.js"></script>
+}

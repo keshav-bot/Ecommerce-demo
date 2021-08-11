@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PostModel>
+
+<div class="card mt-4">
+    <div class="card-header mt-4">
+        <a class="btn btn-primary float-right" asp-action="AddNewPost" asp-controller="Post">Add New</a>
+    </div>
+    <div class="card-body ">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th scope="col">PostName</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Description</th>
+                    <th scoper="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.Name</td>
+                        <td>@item.salary</td>
+                        <td>@item.JobDescription</td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Post" asp-action="EditPost" asp-route-id="@item.Id">Edit</a>
+                            <span><a class="btn btn-danger" asp-action="DeletePost" asp-route-id="@item.Id">Delete</a></span>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-info" asp-action="AllPost" asp-controller="Post">Back to List</a>
+    </div>
+</div>

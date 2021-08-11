@@ -1,0 +1,216 @@
+﻿
+@model SearchModel
+    
+    <div class="m-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Search</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Searchvm.Name</li>
+            </ol>
+        </nav>
+        <div class="row  pt-4 border" style="margin-left:100px; margin-right:100px;">
+            <div class="col-md-3 col-12">
+                <div class="row ">
+                    <div class="col-md-12 col-12 m-1">
+                        <img src="~/Images/DefaultImages/logo-2.png" />
+                        <h5 class="text-dark-50"> We Deliver In Your Home With 100 % Gurantee</h5>
+                    </div>
+                    <div class="col-md-12 col-12 m-1">
+                        <img src="~/Images/DefaultImages/logo-3.png" />
+                        <h5 class="text-dark-50"> Our Online  Services Are Available 24*7</h5>
+                    </div>
+                    <div class="col-md-12 col-12 m-1">
+                        <img src="~/Images/DefaultImages/logo-2.png" />
+                        <h5 class="text-dark-50">Free Delivery is only Available In Bulk Purchase</h5>
+                    </div>
+                    <div class="col-md-12 col-12 m-1">
+                        <img src="~/Images/DefaultImages/logo-4.png" />
+                        <h5 class="text-dark-50"> There is Special offer during festivals.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-12">
+                <img src="@Model.Searchvm.ProductImageUrl" class="img-fluid" style="height:450px; width:350px;" />
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="row ">
+                    <div class="col-md-12 col-12 mt-1">
+                        <h5 class="text-dark-50">Our Offered Price </h5>
+                        <p class="text-dark-50 text-danger"> @Model.Searchvm.Price</p>
+                    </div>
+                    <div class="col-md-12 col-12 mt-1">
+                        <h5 class="text-dark-50">Discount </h5>
+                        <p class="text-dark-50 text-danger"> @Model.Searchvm.Discount</p>
+                    </div>
+                    <div class="col-md-12 col-12 mt-1">
+                        <h5 class="text-dark-50">Detail Description About This Product</h5>
+                        <p class="text-dark-50">@Model.Searchvm.Description</p>
+                    </div>
+                    <div class="col-md-12 col-12 mt-1">
+
+                        <a class="add-to-cart btn btn-danger text-white" cardid="@Model.Searchvm.Id"><i class="fas fa-shopping-cart"></i>&nbsp; ADD TO CART</a>
+                    </div>
+                    <div class="col-md-12 col-12 mt-1">
+                        <a class="btn btn-primary text-white" asp-action="Index" asp-controller="Home" asp-fragment="">Back To shopping</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <h1 class="text-danger text-capitalize text-center">People Also Like </h1>
+        <hr/>
+        <div class="row m-4">
+            <div class="col-md-12 col-12">
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-popular" role="tabpanel" aria-labelledby="nav-popular-tab">
+                        <div class="row">
+                            @foreach (var item in Model.simillarSearch)
+                            {
+                                @if (item.units != 0)
+                                {
+                                    <div class="col-md-4 col-12">
+                                        <div class="product-grid4">
+                                            <div class="product-image4">
+                                                <a href="#">
+                                                    <img class="pic-1" src="@item.ProductImageUrl">
+                                                    <img class="pic-2" src="@item.ProductImageUrl">
+                                                </a>
+                                                <ul class="social">
+                                                    <li><a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Id" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+
+                                                    <li><a class="add-to-cart " cardid="@item.Id" data-tip="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                                                </ul>
+                                                <span class="product-new-label">Best</span>
+
+                                            </div>
+                                            <div class="product-content">
+                                                <h3 class="title"><a href="#">@item.Description</a></h3>
+                                                <div class="price">
+                                                    @item.Price
+                                                    <span>@item.Price</span>
+                                                </div>
+                                                <a class="btn btn-danger  text-white">ADD TO CART</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $(".add-to-cart").click(function () {
+                    var attr = $(this).attr("cardid");
+                    $.ajax({
+                        type: "get",
+                        contentType: "application/json;",
+                        url: "/Cart/AddToCart",
+                        data: { "id": attr },
+                        success: function (data) {
+                            Lobibox.notify('default', {
+                                pauseDelayOnHover: true,
+                                continueDelayOnInactiveTab: false,
+                                delay: 15000,  
+                                msg: 'item is added sucessfully'
+                            });
+
+                        }
+
+                    })
+                });
+            });
+
+        </script>
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*@model  SearchModel
+        @{
+            ViewData["Title"] = "Search";
+        }
+
+
+        <style>
+            #card-hover:hover{
+                background-color:#ffffff;
+                text-align:center;
+            }
+        </style>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Search Result</li>
+            </ol>
+        </nav>
+        <div class="card offset-2" style="width:50rem;">
+            <div class="card-body">
+                    <div class="item">
+                        <div class="product-grid4">
+                            <div class="product-image4">
+                                <a href="product-detail.html">
+                                    <img class="pic-1 img-fluid" style="height:400px; width:auto;" src="@Model.Searchvm.ProductImageUrl">
+                                    <img class="pic-2 img-fluid" style="height:400px; width:auto;" src="@Model.Searchvm.ProductImageUrl">
+                                </a>
+                                <ul class="social">
+                                    <li><a asp-action="ProductDetails" asp-controller="Product" asp-route-id="@Model.Searchvm.Id" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+
+                                    <li><a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Searchvm.Id" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                                <span class="product-new-label">New</span>
+                                <span class="product-discount-label">-10%</span>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">@Model.Searchvm.Description</a></h3>
+                                <div class="price">
+                                    @Model.Searchvm.Price
+                                    <span>@Model.Searchvm.Price $</span>
+                                </div>
+                                <a class="add-to-cart" asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Searchvm.Id">ADD TO CART</a>
+                            </div>
+                        </div>
+                    </div>
+             </div>
+        </div>
+
+        <div  class="h1" style="margin-top:20px; padding: 30px;color:antiquewhite; background-color:brown ; text-align:center ;">Simillar product that you may like ....</div>
+        <div class="row">
+            @foreach (var item in Model.simillarSearch)
+            {
+            <div class="col-3 margin:1px;" >
+                <div class="card" style="width:15rem; margin:5px;" id="card-hover">
+                    <img src="@item.ProductImageUrl" class="card-img-top" alt="..." style="height:180px; width:auto; border: 1px solid  #777;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text"> Rs @item.Price</p>
+                        <a asp-action="AddToCart" asp-controller="cart" asp-route-id="@item.Id" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+
+            }
+        </div>*@
+
+
+

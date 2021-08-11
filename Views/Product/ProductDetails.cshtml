@@ -1,0 +1,85 @@
+﻿
+@model Product
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Product-Detail</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+    </ol>
+</nav>
+<div class="row  pt-4 border" style="margin-left:100px; margin-right:100px;">
+    <div class="col-md-3 col-12">
+        <div class="row ">
+            <div class="col-md-12 col-12 m-1">
+               <img src="~/Images/DefaultImages/logo-2.png" />
+                <h5 class="text-dark-50"> We Deliver In Your Home With 100 % Gurantee</h5>
+            </div>
+            <div class="col-md-12 col-12 m-1">
+                <img src="~/Images/DefaultImages/logo-3.png" />
+                <h5 class="text-dark-50"> Our Online  Services Are Available 24*7</h5>
+            </div>
+            <div class="col-md-12 col-12 m-1">
+                <img src="~/Images/DefaultImages/logo-2.png" />
+                <h5 class="text-dark-50">Free Delivery is only Available In Bulk Purchase</h5>
+            </div>
+            <div class="col-md-12 col-12 m-1">
+                <img src="~/Images/DefaultImages/logo-4.png" />
+                <h5 class="text-dark-50"> There is Special offer during festivals.</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 col-12">
+        <img src="@Model.ProductImageUrl" class="img-fluid" style="height:350px; width:350px;" />
+    </div>
+    <div class="col-md-3 col-12">
+        <div class="row ">
+            <div class="col-md-12 col-12 mt-1">
+                <h5 class="text-dark-50">Our Offered Price </h5>
+                <p class="text-dark-50 text-danger"> @Model.Price</p>
+            </div>
+            <div class="col-md-12 col-12 mt-1">
+                <h5 class="text-dark-50">Discount </h5>
+                <p class="text-dark-50 text-danger"> @Model.Discount</p>
+            </div>
+            <div class="col-md-12 col-12 mt-1">
+                <h5 class="text-dark-50">Detail Description About This Product</h5>
+                <p class="text-dark-50">@Model.Description</p>
+            </div>
+            <div class="col-md-12 col-12 mt-1">
+
+                <a class="add-to-cart btn btn-danger text-white" cardid="@Model.Id" +><i class="fas fa-shopping-cart"></i>&nbsp; ADD TO CART</a>
+            </div>
+            <div class="col-md-12 col-12 mt-1">
+                <a class="btn btn-primary text-white" asp-action="Index" asp-controller="Home" asp-fragment="">Back To shopping</a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart").click(function () {
+                var attr = $(this).attr("cardid");
+                $.ajax({
+                    type: "get",
+                    contentType:"application/json;",
+                    url: "/Cart/AddToCart",
+                    data: { "id": attr },
+                    success: function (data) {
+                        Lobibox.notify('default', {
+                            pauseDelayOnHover: true,
+                            continueDelayOnInactiveTab: false,
+                            delay: 15000,
+                            msg: 'item is added sucessfully'
+                        });
+
+                    }
+
+                })
+            });
+        });
+
+    </script>
+}
